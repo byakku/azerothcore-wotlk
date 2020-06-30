@@ -5,5 +5,7 @@ RUN apt update && apt install -y libmysqlclient-dev libssl-dev libace-6.* libace
 
 HEALTHCHECK --interval=5s --timeout=15s --start-period=30s --retries=3 CMD netstat -lnpt | grep :8085 || exit 1
 
+COPY --from=acbuilder:latest /azeroth-server/bin/worldserver /azeroth-server/bin/worldserver
+COPY . /azeroth-server/ 
 # run the worldserver located in the directory "docker/worldserver/bin" of the host machine
 CMD ["/azeroth-server/bin/worldserver"]
